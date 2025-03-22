@@ -22,21 +22,20 @@
             <button type="submit">Analyze</button>
         </form>
 
-        {% if error %}
+      
         <div class="error">
             <p>{{ error }}</p>
         </div>
-        {% endif %}
-
-        {% if plot_path %}
+      
+    
         <div class="results">
             <h2>Analysis Results for {{ stock_symbol }}</h2>
             <p>Date Range: {{ start_date }} to {{ end_date }}</p>
             <img src="{{ plot_path }}" alt="Stock Price Plot">
         </div>
-        {% endif %}
+   
 
-        {% if overall_recommendation %}
+      
         <div class="recommendations">
             <h3>Overall Recommendation: {{ overall_recommendation }}</h3>
         </div>
