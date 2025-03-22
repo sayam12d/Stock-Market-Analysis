@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Market Analysis</h1>
+        <form method="POST" action="/analyze">
+            <label for="symbol">Stock Symbol:</label>
+            <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if plot_path %}
+        <div class="results">
+            <h2>Analysis Results for {{ stock_symbol }}</h2>
+            <p>Date Range: {{ start_date }} to {{ end_date }}</p>
+            <img src="{{ plot_path }}" alt="Stock Price Plot">
+        </div>
+        {% endif %}
+
+        {% if overall_recommendation %}
+        <div class="recommendations">
+            <h3>Overall Recommendation: {{ overall_recommendation }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
