@@ -2,43 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Market Analysis</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Stock Market Analysis</h1>
-        <form method="POST" action="/analyze">
+
+        <form action="/analyze" method="POST">
             <label for="symbol">Stock Symbol:</label>
-            <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+            <input type="text" name="symbol" required>
 
             <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" required>
+            <input type="date" name="start_date" required>
 
             <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" required>
+            <input type="date" name="end_date" required>
 
             <button type="submit">Analyze</button>
         </form>
 
-      
-        <div class="error">
-            <p>{{ error }}</p>
-        </div>
-      
-    
-        <div class="results">
-            <h2>Analysis Results for {{ stock_symbol }}</h2>
-            <p>Date Range: {{ start_date }} to {{ end_date }}</p>
-            <img src="{{ plot_path }}" alt="Stock Price Plot">
-        </div>
-   
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
 
-      
-        <div class="recommendations">
-            <h3>Overall Recommendation: {{ overall_recommendation }}</h3>
-        </div>
+        {% if overall_recommendation %}
+            <div class="results">
+                <h2>Recommendation: {{ overall_recommendation }}</h2>
+                <img src="{{ url_for('static', filename=plot_path.split('static/')[-1]) }}" alt="Stock Plot">
+                <br>
+                <a class="download-btn" href="{{ url_for('static', filename=plot_path.split('static/')[-1]) }}" download>Download Chart</a>
+            </div>
         {% endif %}
     </div>
 </body>
